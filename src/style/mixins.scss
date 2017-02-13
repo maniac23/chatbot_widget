@@ -1,0 +1,28 @@
+/*--------------------
+Mixins
+--------------------*/
+
+@mixin center {
+  position: relative;
+  /*  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);*/
+}
+
+@mixin ball {
+  content: "";
+  z-index: 2;
+
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin-top: 4px;
+  /*  background: rgba(255, 255, 255, .5);*/
+
+  background: #888888;
+  border-radius: 50%;
+
+  animation: ball 0.45s cubic-bezier(0, 0, 0.15, 1) alternate infinite;
+
+  @include center;
+}

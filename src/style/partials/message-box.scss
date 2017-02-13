@@ -1,0 +1,62 @@
+/*--------------------
+Message Box
+--------------------*/
+
+.message-box {
+  position: relative;
+
+  flex: 0 1 42px;
+  width: 90%;
+  height: 14px;
+  margin: 2px auto;
+  padding: 10px;
+
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+
+  & .message-input {
+    width: 265px;
+    height: 24px;
+    margin: 0;
+    padding-right: 20px;
+    font-size: 15px;
+    color: #444444;
+
+    background: none;
+    border: none;
+    outline: none !important;
+
+    resize: none;
+  }
+
+  textarea:focus:-webkit-placeholder {
+    color: transparent;
+  }
+
+  & .message-submit {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    z-index: 1;
+
+    padding: 6px 10px;
+
+    font-size: 12px;
+    line-height: 1;
+    color: #4a90e2;
+    text-transform: uppercase;
+    background: #ffffff;
+    border: none;
+    border-radius: 5px;
+    outline: none !important;
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+
+    &:hover {
+      color: #333333;
+      background: #ffffff;
+    }
+  }
+}

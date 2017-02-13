@@ -1,0 +1,78 @@
+.chat {
+  @include center;
+  width: 100%;
+  height: calc(100% - 15px);
+  max-height: 500px;
+  z-index: 10;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+
+/*--------------------
+Chat Title
+--------------------*/
+
+.chat-title {
+  flex: 0 1 45px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  border-bottom: 1px solid #cccccc;
+  color: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 5px;
+  background-color: #6dca6c;
+  text-transform: uppercase;
+  text-align: center;
+
+  h1,
+  h2 {
+    font-weight: normal;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+  }
+
+  h2 {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .avatar {
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    left: 9px;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ffffff;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+@media only screen and (max-device-width: 667px), screen and (max-width: 450px) {
+  .chat {
+    border-radius: 0 !important;
+    max-height: initial !important;
+
+    &-title {
+      padding: 20px 20px 15px 10px !important;
+      text-align: left;
+    }
+  }
+}
