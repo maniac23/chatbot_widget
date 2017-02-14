@@ -78,6 +78,60 @@ Messages
       }
     }
 
+    & form {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+
+      label{
+        margin-right: 10px;
+      }
+
+      input {
+        vertical-align: middle;
+        outline: none;
+        transition: all 0.2s ease-in;
+
+        &:checked + label {
+          font-weight: 500;
+        }
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"] {
+        display: block;
+        padding: 3px;
+        margin: 0 auto 10px;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+
+        &:focus,
+        &:active {
+          border-color: #292929;
+        }
+        //
+        // &:invalid {
+        //   border-color: #ea0a0a;
+        // }
+      }
+
+      input[type="submit"] {
+        display: block;
+        background: none;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin: 10px auto 0;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+
+        &:hover {
+          background: #cccccc;
+        }
+      }
+    }
+
     &.message-personal {
       float: right;
       text-align: right;

@@ -49,7 +49,6 @@ function insertMessage() {
 
 $('.message-submit').click(function() {
   insertMessage();
-  secondMessage();
 });
 
 // отправка по нажатию на enter
@@ -60,30 +59,15 @@ $(window).on('keydown', function(e) {
   }
 });
 
-var Fake = [
-  'Hi there, I\'m Jesse and you?',
-  'Nice to meet you',
-  'How are you?',
-  'Not too bad, thanks',
-  'What do you do?',
-  'That\'s awesome',
-  'Codepen is a nice place to stay',
-  'I think you\'re a nice person',
-  'Why do you think that?',
-  'Can you explain?',
-  'Anyway I\'ve gotta go now',
-  'It was a pleasure chat with you',
-  'Time to make a new codepen',
-  'Bye',
-  ':)'
-];
-
+// анимация "вам пишут"
+function loadingMessage() {
+  $('<div class="message loading new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+  updateScrollbar();
+}
 
 // отправка сообщения "ботом"
 function botMessage(messageText) {
-  $('<div class="message loading new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
-  updateScrollbar();
-
+  loadingMessage();
   setTimeout(function() {
     $('.message.loading').remove();
     $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>' + messageText + '</div>').appendTo($('.mCSB_container')).addClass('new');
@@ -92,18 +76,59 @@ function botMessage(messageText) {
   }, 1000 + (Math.random() * 20) * 100);
 
 }
-function secondMessage(messageText) {
-  $('<div class="message loading new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
-  updateScrollbar();
 
+// форма с выбором ответа
+function secondMessage() {
+  loadingMessage();
   setTimeout(function() {
     $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>' + 'Как вам удобнее получить ответ?<form action=""><label for="email">По email <input type="radio" name="how" id="email"></label><label for="tel">По телефону <input type="radio" name="how" id="tel"></label></form>' + '</div>').appendTo($('.mCSB_container')).addClass('new');
+    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>' + 'Как вам удобнее получить ответ?' + '<form action="" id="answer"><input type="radio" name="how" id="email"><label for="email">По email </label><input type="radio" name="how" id="tel"><label for="tel">По телефону </label><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
     setDate();
     updateScrollbar();
   }, 1000 + (Math.random() * 20) * 100);
-
 }
+
+// форма если выбран email
+function emailForm() {
+  loadingMessage();
+  setTimeout(function() {
+    $('.message.loading').remove();
+    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и email и мы вам ответим<form action="" id="email-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required><input type="email" name="email2" id="email2" placeholder="Введите ваш email" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
+    setDate();
+    updateScrollbar();
+  }, 1000 + (Math.random() * 20) * 100);
+}
+// форма если выбран tel
+function telForm() {
+  loadingMessage();
+  setTimeout(function() {
+    $('.message.loading').remove();
+    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и номер телефона и мы вам позвоним<form action="" id="tel-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required><input type="tel" name="tel" id="tel" placeholder="Введите ваш телефон" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
+    setDate();
+    updateScrollbar();
+  }, 1000 + (Math.random() * 20) * 100);
+}
+
+
+
+$('body').on('submit', '#answer', function(event) {
+  var email = $('#answer input[id="email"]');
+  var tel = $('#answer input[id="tel"]');
+  if(email.is(':checked')) {
+    console.log('email cheked');
+    emailForm();
+  } else if(tel.is(':checked')) {
+    telForm();
+  } else {
+    console.log('fgjdfgfg');
+  }
+
+  event.preventDefault();
+});
+
+// обработчик формы emailForm
+
+// обработчик формы tel
 
 $('.button').click(function() {
   $('.menu .items span').toggleClass('active');
