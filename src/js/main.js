@@ -93,7 +93,7 @@ function emailForm() {
   loadingMessage();
   setTimeout(function() {
     $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и email и мы вам ответим<form action="" id="email-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required><input type="email" name="email2" id="email2" placeholder="Введите ваш email" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
+    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и email и мы вам ответим<form action="" id="email-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required><input type="email" name="email" id="email" placeholder="Введите ваш email" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
     setDate();
     updateScrollbar();
   }, 1000 + (Math.random() * 20) * 100);
@@ -115,22 +115,54 @@ $('body').on('submit', '#answer', function(event) {
   var email = $('#answer input[id="email"]');
   var tel = $('#answer input[id="tel"]');
   if(email.is(':checked')) {
-    console.log('email cheked');
     emailForm();
   } else if(tel.is(':checked')) {
     telForm();
   } else {
-    console.log('fgjdfgfg');
+    botMessage('Может попробуем еще раз?');
+    setTimeout(function() {
+      secondMessage();
+    }, 500);
   }
 
   event.preventDefault();
 });
 
 // обработчик формы emailForm
-
+$('body').on('submit', '#email-form', function(event) {
+  event.preventDefault();
+  formSubmit('#email-form');
+});
 // обработчик формы tel
+$('body').on('submit', '#tel-form', function(event) {
+  event.preventDefault();
+  formSubmit('#tel-form');
+});
 
+// ajax отправка форм
+function formSubmit(form) {
+  var formData = $(form).serialize();
+  $.ajax({
+    type: 'POST',
+    url: '../mail.php',
+    data: formData,
+    success: function(data) {
+      console.log('форма отправлена' + data);
+        // показать сообщение
+      botMessage('Спасибо! Мы скоро с вами свяжемся!');
+    },
+    error: function(xhr, str) {
+      console.log('Возникла ошибка: ' + xhr.responseCode);
+      // сообщение
+    }
+  });
+}
+
+// TODO запилить закрытие/ открытие формы
 $('.button').click(function() {
   $('.menu .items span').toggleClass('active');
   $('.menu .button').toggleClass('active');
 });
+
+// TODO запилить валидацию
+// TODO запилить php обработчик
