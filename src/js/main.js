@@ -2,12 +2,13 @@ var $messages = $('.messages-content'),
   d, h, m,
   i = 0;
 
+var openTimeout = setTimeout(function() {
+  openMessenger();
+}, 5000);
+
 // инициализируем кастомный скроллбар
 $(window).load(function() {
   $messages.mCustomScrollbar();
-  setTimeout(function() {
-    openMessenger();
-  }, 5000);
 });
 
 // прокрутка скроллбара
@@ -161,11 +162,14 @@ function formSubmit(form) {
 function openMessenger() {
   $('.messages-wrap').slideToggle().css('display', 'flex');
   $('.messenger').toggleClass('active');
-  botMessage('Чего изволите, сударь?');
+  if(!$('.messenger').hasClass('active')) {
+    $('.mCSB_container').empty();
+  } else {
+    botMessage('Чего надобно?');
+  }
 }
 
 $('.button').click(function() {
+  clearTimeout(openTimeout);
   openMessenger();
 });
-
-// TODO запилить валидацию
