@@ -93,7 +93,7 @@ function emailForm() {
   loadingMessage();
   setTimeout(function() {
     $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и email и мы вам ответим<form action="" id="email-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required><input type="email" name="email" id="email" placeholder="Введите ваш email" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
+    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и email и мы вам ответим<form action="" id="email-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required pattern="[A-Za-z]+"><input type="email" name="email" id="email" placeholder="Введите ваш email" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
     setDate();
     updateScrollbar();
   }, 1000 + (Math.random() * 20) * 100);
@@ -103,7 +103,7 @@ function telForm() {
   loadingMessage();
   setTimeout(function() {
     $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и номер телефона и мы вам позвоним<form action="" id="tel-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required><input type="tel" name="tel" id="tel" placeholder="Введите ваш телефон" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
+    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и номер телефона и мы вам позвоним<form action="" id="tel-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required pattern="[A-Za-z]+"><input type="tel" name="tel" id="tel" placeholder="Введите ваш телефон" required pattern="[0-9]+"><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
     setDate();
     updateScrollbar();
   }, 1000 + (Math.random() * 20) * 100);
@@ -164,7 +164,6 @@ function openMessenger() {
   botMessage('Чего изволите, сударь?');
 }
 
-// TODO запилить закрытие/ открытие формы
 $('.button').click(function() {
   openMessenger();
 });

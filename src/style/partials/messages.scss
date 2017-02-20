@@ -115,10 +115,10 @@ Messages
         &:active {
           border-color: #292929;
         }
-        //
-        // &:invalid {
-        //   border-color: #ea0a0a;
-        // }
+
+        &:invalid {
+          border-color: #ea0a0a;
+        }
       }
 
       input[type="submit"] {
