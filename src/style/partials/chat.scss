@@ -18,17 +18,20 @@ Chat Title
 --------------------*/
 
 .chat-title {
-  flex: 0 1 45px;
+  // flex: 0 1 45px;
   position: relative;
   z-index: 2;
   width: 100%;
   border-bottom: 1px solid #cccccc;
   color: #ffffff;
-  padding-top: 50px;
+  padding-top: 25px;
   padding-bottom: 5px;
   background-color: #6dca6c;
   text-transform: uppercase;
   text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
   h1,
   h2 {
@@ -46,10 +49,6 @@ Chat Title
   }
 
   .avatar {
-    position: absolute;
-    z-index: 1;
-    top: 8px;
-    left: 9px;
     border-radius: 30px;
     width: 60px;
     height: 60px;

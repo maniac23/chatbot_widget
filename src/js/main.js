@@ -160,9 +160,8 @@ function formSubmit(form) {
 
 // TODO запилить закрытие/ открытие формы
 $('.button').click(function() {
-  $('.menu .items span').toggleClass('active');
-  $('.menu .button').toggleClass('active');
+  $('.messages-wrap').slideToggle().css('display', 'flex');
+  $('.messenger').toggleClass('active');
 });
 
 // TODO запилить валидацию
-// TODO запилить php обработчик

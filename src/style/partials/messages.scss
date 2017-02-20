@@ -3,6 +3,7 @@ Messages
 --------------------*/
 
 .messages {
+  // display: none;
   flex: 1 1 auto;
   overflow: hidden;
   position: relative;
@@ -16,12 +17,16 @@ Messages
     width: 100%;
   }
 
+  &-wrap{
+    flex: 1;
+    display: none;
+    flex-direction: column;
+  }
+
   .message {
     clear: both;
     float: left;
     padding: 6px 10px 7px;
-    -webkit-border-radius: 20px 20px 20px 0;
-    -moz-border-radius: 20px 20px 20px 0;
     border-radius: 20px 20px 20px 0;
     background: #eeeeee;
     margin: 8px 0;
