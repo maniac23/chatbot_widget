@@ -6,8 +6,8 @@ var $messages = $('.messages-content'),
 $(window).load(function() {
   $messages.mCustomScrollbar();
   setTimeout(function() {
-    botMessage('Чего изволите, сударь?');
-  }, 100);
+    openMessenger();
+  }, 5000);
 });
 
 // прокрутка скроллбара
@@ -158,10 +158,15 @@ function formSubmit(form) {
   });
 }
 
-// TODO запилить закрытие/ открытие формы
-$('.button').click(function() {
+function openMessenger() {
   $('.messages-wrap').slideToggle().css('display', 'flex');
   $('.messenger').toggleClass('active');
+  botMessage('Чего изволите, сударь?');
+}
+
+// TODO запилить закрытие/ открытие формы
+$('.button').click(function() {
+  openMessenger();
 });
 
 // TODO запилить валидацию
