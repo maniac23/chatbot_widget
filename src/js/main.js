@@ -1,6 +1,11 @@
 var $messages = $('.messages-content'),
-  d, h, m,
-  i = 0;
+  d, h, m;
+
+var answerForm = $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Как вам удобнее получить ответ?<form action="" id="answer"><input type="radio" name="how" id="email"><label for="email">По email </label><input type="radio" name="how" id="tel"><label for="tel">По телефону </label><input type="submit" value="Ответить"></form></div>');
+
+var emailForm = $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и email и мы вам ответим<form action="" id="email-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required pattern="[A-Za-z]+"><input type="email" name="email" id="email" placeholder="Введите ваш email" required><input type="submit" value="Ответить"></form></div>');
+
+var telForm = $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и номер телефона и мы вам позвоним<form action="" id="tel-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required pattern="[A-Za-z]+"><input type="tel" name="tel" id="tel" placeholder="Введите ваш телефон" required pattern="[0-9]+"><input type="submit" value="Ответить"></form></div>');
 
 var openTimeout = setTimeout(function() {
   openMessenger();
@@ -43,22 +48,11 @@ function insertMessage() {
   setDate();
   $('.message-input').val(null);
   updateScrollbar();
+  // отвечаем на соообщение
   setTimeout(function() {
-    secondMessage();
+    sendForm(answerForm);
   }, 1000 + (Math.random() * 20) * 100);
 }
-
-$('.message-submit').click(function() {
-  insertMessage();
-});
-
-// отправка по нажатию на enter
-$(window).on('keydown', function(e) {
-  if (e.which === 13) {
-    insertMessage();
-    return false;
-  }
-});
 
 // анимация "вам пишут"
 function loadingMessage() {
@@ -75,70 +69,18 @@ function botMessage(messageText) {
     setDate();
     updateScrollbar();
   }, 1000 + (Math.random() * 20) * 100);
-
 }
 
-// форма с выбором ответа
-function secondMessage() {
+// функция для отправки форм
+function sendForm(form) {
   loadingMessage();
   setTimeout(function() {
     $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>' + 'Как вам удобнее получить ответ?' + '<form action="" id="answer"><input type="radio" name="how" id="email"><label for="email">По email </label><input type="radio" name="how" id="tel"><label for="tel">По телефону </label><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
+    form.appendTo($('.mCSB_container')).addClass('new');
     setDate();
     updateScrollbar();
   }, 1000 + (Math.random() * 20) * 100);
 }
-
-// форма если выбран email
-function emailForm() {
-  loadingMessage();
-  setTimeout(function() {
-    $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и email и мы вам ответим<form action="" id="email-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required pattern="[A-Za-z]+"><input type="email" name="email" id="email" placeholder="Введите ваш email" required><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
-    setDate();
-    updateScrollbar();
-  }, 1000 + (Math.random() * 20) * 100);
-}
-// форма если выбран tel
-function telForm() {
-  loadingMessage();
-  setTimeout(function() {
-    $('.message.loading').remove();
-    $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>Оставьте свое имя и номер телефона и мы вам позвоним<form action="" id="tel-form"><input type="text" name="name" id="name" placeholder="Введите ваше имя" required pattern="[A-Za-z]+"><input type="tel" name="tel" id="tel" placeholder="Введите ваш телефон" required pattern="[0-9]+"><input type="submit" value="Ответить"></form></div>').appendTo($('.mCSB_container')).addClass('new');
-    setDate();
-    updateScrollbar();
-  }, 1000 + (Math.random() * 20) * 100);
-}
-
-
-
-$('body').on('submit', '#answer', function(event) {
-  var email = $('#answer input[id="email"]');
-  var tel = $('#answer input[id="tel"]');
-  if(email.is(':checked')) {
-    emailForm();
-  } else if(tel.is(':checked')) {
-    telForm();
-  } else {
-    botMessage('Может попробуем еще раз?');
-    setTimeout(function() {
-      secondMessage();
-    }, 500);
-  }
-
-  event.preventDefault();
-});
-
-// обработчик формы emailForm
-$('body').on('submit', '#email-form', function(event) {
-  event.preventDefault();
-  formSubmit('#email-form');
-});
-// обработчик формы tel
-$('body').on('submit', '#tel-form', function(event) {
-  event.preventDefault();
-  formSubmit('#tel-form');
-});
 
 // ajax отправка форм
 function formSubmit(form) {
@@ -168,6 +110,48 @@ function openMessenger() {
     botMessage('Чего надобно?');
   }
 }
+
+
+$('.message-submit').click(function() {
+  insertMessage();
+});
+
+// отправка по нажатию на enter
+$(window).on('keydown', function(e) {
+  if (e.which === 13) {
+    insertMessage();
+    return false;
+  }
+});
+
+$('body').on('submit', '#answer', function(event) {
+  var email = $('#answer input[id="email"]');
+  var tel = $('#answer input[id="tel"]');
+  if(email.is(':checked')) {
+    sendForm(emailForm);
+  } else if(tel.is(':checked')) {
+    sendForm(telForm);
+  } else {
+    botMessage('Может попробуем еще раз?');
+    setTimeout(function() {
+      sendForm(answerForm);
+    }, 500);
+  }
+
+  event.preventDefault();
+});
+
+// обработчик формы emailForm
+$('body').on('submit', '#email-form', function(event) {
+  event.preventDefault();
+  formSubmit('#email-form');
+});
+// обработчик формы tel
+$('body').on('submit', '#tel-form', function(event) {
+  event.preventDefault();
+  formSubmit('#tel-form');
+});
+
 
 $('.button').click(function() {
   clearTimeout(openTimeout);
